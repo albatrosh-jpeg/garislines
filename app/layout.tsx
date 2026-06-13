@@ -1,6 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Cormorant_Garamond } from 'next/font/google'
+import { Header } from './components/Header'
+import { Footer } from './components/Footer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -12,26 +14,25 @@ const cormorant = Cormorant_Garamond({
   variable: '--font-cormorant',
 })
 
-export const metadata = {
-  title: 'Awal Radzi | Contemporary Abstract Artist',
+export const metadata: Metadata = {
+  title: {
+    default: 'Awal Radzi',
+    template: '%s | Awal Radzi',
+  },
   description:
-    'Contemporary abstract paintings by Awal Radzi. Original artworks exploring movement, rhythm and organic structures.',
-
+    'Contemporary abstract paintings, exhibitions and commissions by Awal Radzi.',
   keywords: [
     'Awal Radzi',
-    'abstract artist',
+    'visual artist',
     'contemporary art',
     'abstract painting',
-    'modern art',
-    'canvas art',
-    'garislines',
+    'artist portfolio',
   ],
-
   openGraph: {
     title: 'Awal Radzi',
     description:
-      'Contemporary abstract paintings by Awal Radzi.',
-    url: 'https://garislines.art',
+      'Contemporary abstract paintings, exhibitions and commissions by Awal Radzi.',
+    url: 'https://awalradzi.art',
     siteName: 'Awal Radzi',
     images: [
       {
@@ -40,7 +41,7 @@ export const metadata = {
         height: 1600,
       },
     ],
-    locale: 'en_US',
+    locale: 'es_ES',
     type: 'website',
   },
 }
@@ -51,11 +52,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
-        className={`${inter.variable} ${cormorant.variable} bg-[#f7f6f2] text-black`}
+        className={`${inter.variable} ${cormorant.variable} bg-[#f6f3ed] text-stone-950`}
       >
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )
