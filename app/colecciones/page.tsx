@@ -9,12 +9,6 @@ export const metadata: Metadata = {
     'Recent paintings and original works by Awal Radzi.',
 }
 
-const interiorMockups = [
-  '/mockups/mockup7.jpeg',
-  '/mockups/mockup15.jpeg',
-  '/mockups/mockup16.jpeg',
-]
-
 export default async function CollectionsPage() {
   const artworks = await getPaintings()
 
@@ -53,12 +47,12 @@ export default async function CollectionsPage() {
               </figure>
             </Link>
 
-            {(index + 1) % 7 === 0 ? (
+            {(index + 1) % 7 === 0 && artwork.mockup ? (
               <figure className="masonry-interior">
                 <div className="masonry-interior-media">
                   <Image
-                    src={interiorMockups[Math.floor(index / 7) % interiorMockups.length]}
-                    alt="Selected interior with Awal Radzi artwork"
+                    src={artwork.mockup}
+                    alt={`${artwork.title} installed in an interior`}
                     fill
                     sizes="(max-width: 760px) 100vw, 33vw"
                     className="object-cover"

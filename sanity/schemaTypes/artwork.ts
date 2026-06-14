@@ -54,9 +54,160 @@ export const artworkType = defineType({
       name: 'mockupImage',
       title: 'Mockup image',
       type: 'image',
+      description: 'Interior or in-space image for this exact artwork.',
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'detailImages',
+      title: 'Detail images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+      description: 'Optional close-ups or surface details for this artwork.',
+    }),
+    defineField({
+      name: 'studioImages',
+      title: 'Studio images',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+      description: 'Optional studio or process images related to this artwork.',
+    }),
+    defineField({
+      name: 'original',
+      title: 'Original',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'available',
+          title: 'Available',
+          type: 'boolean',
+          initialValue: true,
+        }),
+        defineField({
+          name: 'sold',
+          title: 'Sold',
+          type: 'boolean',
+          initialValue: false,
+        }),
+      ],
+    }),
+    defineField({
+      name: 'print',
+      title: 'Print settings',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'enabled',
+          title: 'Enable prints',
+          type: 'boolean',
+          initialValue: false,
+        }),
+        defineField({
+          name: 'price',
+          title: 'Base price',
+          type: 'number',
+          description: 'Fallback price used when no size-specific price is selected.',
+        }),
+        defineField({
+          name: 'editionSize',
+          title: 'Edition size',
+          type: 'number',
+        }),
+        defineField({
+          name: 'printsSold',
+          title: 'Prints sold',
+          type: 'number',
+          initialValue: 0,
+        }),
+        defineField({
+          name: 'paper',
+          title: 'Paper',
+          type: 'string',
+        }),
+        defineField({
+          name: 'signed',
+          title: 'Signed',
+          type: 'boolean',
+          initialValue: true,
+        }),
+        defineField({
+          name: 'certificate',
+          title: 'Certificate included',
+          type: 'boolean',
+          initialValue: true,
+        }),
+        defineField({
+          name: 'shippingWeight',
+          title: 'Shipping weight',
+          type: 'number',
+          description: 'Weight in kilograms, ready for future shipping integrations.',
+        }),
+        defineField({
+          name: 'masterPrintFile',
+          title: 'Master print file',
+          type: 'file',
+          description: 'Production-ready print file for the edition.',
+        }),
+        defineField({
+          name: 'sizes',
+          title: 'Available sizes',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'width',
+                  title: 'Width',
+                  type: 'number',
+                }),
+                defineField({
+                  name: 'height',
+                  title: 'Height',
+                  type: 'number',
+                }),
+                defineField({
+                  name: 'price',
+                  title: 'Price',
+                  type: 'number',
+                }),
+              ],
+              preview: {
+                select: {
+                  title: 'label',
+                  price: 'price',
+                },
+                prepare({ title, price }) {
+                  return {
+                    title: title || 'Print size',
+                    subtitle: price ? `€${price}` : undefined,
+                  }
+                },
+              },
+            },
+          ],
+        }),
+      ],
     }),
     defineField({
       name: 'availabilityStatus',

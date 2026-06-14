@@ -18,7 +18,7 @@ export default async function HomePage() {
         className="object-cover"
       />
       <Link href="/colecciones" className="entrance-seal" aria-label="Enter paintings archive">
-        <span>GARISLINES</span>
+        <span>AWAL RADZI</span>
         <small>Enter</small>
       </Link>
     </main>

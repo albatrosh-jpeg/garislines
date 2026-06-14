@@ -2,6 +2,8 @@ import { groq } from 'next-sanity'
 import {
   artworks as fallbackArtworks,
   type Artwork,
+  type ArtworkOriginal,
+  type ArtworkPrint,
   getCommercialStatus,
   getCommercialStatusLabel,
 } from '../data/artworks'
@@ -16,6 +18,10 @@ type SanityArtwork = {
   description?: string
   mainImage?: string
   mockupImage?: string
+  detailImages?: string[]
+  studioImages?: string[]
+  original?: ArtworkOriginal
+  print?: ArtworkPrint
   availabilityStatus?: 'available' | 'sold' | 'private-collection'
   showInPaintings?: boolean
   showInShop?: boolean
@@ -33,6 +39,26 @@ const artworkFields = groq`
   description,
   "mainImage": mainImage.asset->url,
   "mockupImage": mockupImage.asset->url,
+  "detailImages": detailImages[].asset->url,
+  "studioImages": studioImages[].asset->url,
+  original,
+  print{
+    enabled,
+    price,
+    editionSize,
+    printsSold,
+    paper,
+    signed,
+    certificate,
+    shippingWeight,
+    "masterPrintFile": masterPrintFile.asset->url,
+    sizes[]{
+      label,
+      width,
+      height,
+      price
+    }
+  },
   availabilityStatus,
   showInPaintings,
   showInShop,
@@ -62,6 +88,15 @@ function normalizeArtwork(item: SanityArtwork): Artwork | null {
     description: item.description || '',
     image: item.mainImage,
     mockup: item.mockupImage,
+    detailImages: item.detailImages || [],
+    studioImages: item.studioImages || [],
+    original: item.original,
+    print: item.print
+      ? {
+          ...item.print,
+          sizes: item.print.sizes || [],
+        }
+      : undefined,
     availableForInquiry: item.availabilityStatus === 'available',
     commercialStatus: item.availabilityStatus || 'unavailable',
     showInPaintings: item.showInPaintings ?? true,
@@ -115,8 +150,7 @@ export async function getAvailableOriginals() {
 }
 
 export async function getShopArtwork(slug: string) {
-  const originals = await getAvailableOriginals()
-  return originals.find((artwork) => artwork.slug === slug)
+  return getArtwork(slug)
 }
 
 export { getCommercialStatus, getCommercialStatusLabel }

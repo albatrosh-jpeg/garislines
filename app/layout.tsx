@@ -1,17 +1,20 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter, Cormorant_Garamond } from 'next/font/google'
+import { Inter, Bodoni_Moda } from 'next/font/google'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
+import { CartDrawer } from './components/CartDrawer'
+import { CartProvider } from './components/CartProvider'
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 })
 
-const cormorant = Cormorant_Garamond({
+const display = Bodoni_Moda({
   subsets: ['latin'],
-  variable: '--font-cormorant',
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
@@ -28,6 +31,13 @@ export const metadata: Metadata = {
     'abstract painting',
     'artist portfolio',
   ],
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/awal-radzi-logo.webp', type: 'image/webp' },
+    ],
+    apple: [{ url: '/apple-icon.png' }],
+  },
   openGraph: {
     title: 'Awal Radzi',
     description:
@@ -54,11 +64,14 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${inter.variable} ${cormorant.variable} bg-[#f6f3ed] text-stone-950`}
+        className={`${inter.variable} ${display.variable}`}
       >
-        <Header />
-        {children}
-        <Footer />
+        <CartProvider>
+          <Header />
+          {children}
+          <Footer />
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   )

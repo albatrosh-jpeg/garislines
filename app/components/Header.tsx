@@ -1,7 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { CartButton } from './CartButton'
 
 const navItems = [
   ['Paintings', '/colecciones'],
@@ -17,6 +19,14 @@ export function Header() {
   return (
     <header className="site-header">
       <Link href="/" className="brand" aria-label="Awal Radzi home">
+        <Image
+          src="/awal-radzi-logo.webp"
+          alt=""
+          width={72}
+          height={60}
+          className="brand-mark"
+          priority
+        />
         <span>AWAL RADZI</span>
       </Link>
       <nav className="main-nav" aria-label="Primary navigation">
@@ -30,6 +40,7 @@ export function Header() {
             </Link>
           )
         })}
+        <CartButton />
       </nav>
     </header>
   )

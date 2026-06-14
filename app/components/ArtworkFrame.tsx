@@ -28,9 +28,9 @@ export function ArtworkFrame({ artwork, priority = false, tall = false }: Artwor
             </div>
           )}
         </div>
-        <figcaption className="mt-4 flex items-start justify-between gap-6 text-[12px] uppercase tracking-[0.18em] text-stone-600">
+        <figcaption className="artwork-caption">
           <span>{artwork.title}</span>
-          <span className="text-right text-stone-400">{artwork.year}</span>
+          <span>{artwork.year}</span>
         </figcaption>
       </figure>
     </Link>

@@ -1,3 +1,28 @@
+export type ArtworkOriginal = {
+  available: boolean
+  sold: boolean
+}
+
+export type ArtworkPrintSize = {
+  label: string
+  width: number
+  height: number
+  price: number
+}
+
+export type ArtworkPrint = {
+  enabled: boolean
+  price?: number
+  editionSize?: number
+  printsSold?: number
+  paper?: string
+  signed?: boolean
+  certificate?: boolean
+  shippingWeight?: number
+  masterPrintFile?: string
+  sizes?: ArtworkPrintSize[]
+}
+
 export type Artwork = {
   slug: string
   title: string
@@ -7,6 +32,10 @@ export type Artwork = {
   dimensions: string
   image?: string
   mockup?: string
+  detailImages?: string[]
+  studioImages?: string[]
+  original?: ArtworkOriginal
+  print?: ArtworkPrint
   featured?: boolean
   availableForInquiry?: boolean
   commercialStatus?: 'available' | 'sold' | 'private-collection' | 'unavailable'
@@ -19,235 +48,287 @@ export type Artwork = {
   description: string
 }
 
+export const defaultPrintSettings: ArtworkPrint = {
+  enabled: true,
+  price: 180,
+  editionSize: 30,
+  printsSold: 0,
+  paper: 'Hahnemuhle Photo Rag 308 gsm',
+  signed: true,
+  certificate: true,
+  shippingWeight: 0.4,
+  sizes: [
+    {
+      label: '50 x 70 cm',
+      width: 50,
+      height: 70,
+      price: 180,
+    },
+    {
+      label: '70 x 100 cm',
+      width: 70,
+      height: 100,
+      price: 280,
+    },
+  ],
+}
+
 export const artworks: Artwork[] = [
   {
     slug: 'linea-organica-i',
-    title: 'Linea Organica I',
+    title: 'Solar Ravine',
     collection: 'Line Studies',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '120 x 90 cm',
     image: '/artworks/art1.jpeg',
     mockup: '/mockups/mockup2.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     featured: true,
     availableForInquiry: true,
     palette: 'Monochrome, vermilion, ivory',
     description:
-      'A dense movement of white linework crosses a field of orange and black, building a visual rhythm between organic growth and graphic tension.',
+      'An orange field opens around dense black and white currents, where line gathers into a charged, almost topographic movement.',
   },
   {
     slug: 'red-field-study',
-    title: 'Red Field Study',
+    title: 'Red Knot Field',
     collection: 'Chromatic Fields',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '140 x 100 cm',
     image: '/artworks/art2.jpeg',
-    mockup: '/mockups/mockup2.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     featured: true,
     availableForInquiry: true,
     palette: 'Crimson, black, white',
     description:
-      'Dark structures and fluid contours inhabit a crimson surface, suggesting enclosure, velocity and suspended architectural fragments.',
+      'Crimson forms press through a compact field of black, white and grey, creating a knotted rhythm of enclosure and release.',
   },
   {
     slug: 'atmospheric-current',
-    title: 'Atmospheric Current',
+    title: 'Terrain of White Currents',
     collection: 'Soft Structures',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '150 x 110 cm',
     image: '/artworks/art3.jpeg',
-    mockup: '/mockups/mockup10.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     featured: true,
     availableForInquiry: true,
     palette: 'Earth, graphite, white',
     description:
-      'Earth tones dissolve under floating lines, creating a quieter composition where motion appears as atmosphere rather than force.',
+      'White lines travel across bands of brown, green and ochre, turning the surface into a landscape of movement and suspended pressure.',
   },
   {
     slug: 'memory-triptych',
-    title: 'Memory Triptych',
+    title: 'Blue Apparitions',
     collection: 'Figure Signals',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '130 x 95 cm',
     image: '/artworks/art4.jpeg',
-    mockup: '/mockups/mockup1.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Electric blue, black, white',
     description:
-      'Fragmented faces emerge through intricate linework, where identity is treated as a field of repetition, interruption and recall.',
+      'Pale figures emerge from a blue ornamental ground, appearing and disappearing inside a field of mirrored linework.',
   },
   {
     slug: 'magenta-silence',
-    title: 'Magenta Silence',
+    title: 'Magenta Aperture',
     collection: 'Chromatic Fields',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '160 x 120 cm',
     image: '/artworks/art5.jpeg',
     mockup: '/mockups/mockup10.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Magenta, ochre, white',
     description:
-      'A luminous center is held by looping forms, balancing chromatic intensity with a deliberate area of pause.',
+      'A vivid magenta centre is held by looping yellow, white and pink forms, creating a controlled opening inside a decorative pressure field.',
   },
   {
     slug: 'silver-red-architecture',
-    title: 'Silver Red Architecture',
+    title: 'Crimson Scaffold',
     collection: 'Line Studies',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '150 x 100 cm',
     image: '/artworks/art6.jpeg',
-    mockup: '/mockups/mockup6.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Silver, red, black',
     description:
-      'Layered crimson paths cross a metallic ground with a sense of constructed pressure and controlled movement.',
+      'A red and grey structure sits inside a quiet architectural setting, emphasizing the painting as both object and spatial presence.',
   },
   {
     slug: 'green-ribbon',
-    title: 'Green Ribbon',
+    title: 'Grey Red Conduit',
     collection: 'Chromatic Fields',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '180 x 120 cm',
     image: '/artworks/art7.jpeg',
     mockup: '/mockups/mockup1.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Green, black, white',
     description:
-      'Bright ribbons and black curves create a charged surface, emphasizing contrast, pulse and visual acceleration.',
+      'Red channels move across a grey field like a circuit, balancing industrial restraint with a nervous organic pulse.',
   },
   {
     slug: 'olive-pink-interruption',
-    title: 'Olive Pink Interruption',
+    title: 'Green Signal Field',
     collection: 'Soft Structures',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '140 x 100 cm',
     image: '/artworks/art8.jpeg',
     mockup: '/mockups/mockup5.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Pink, olive, black',
     description:
-      'Heavy forms interrupt a network of flowing lines, creating a composition that moves between pattern and rupture.',
+      'Electric greens and deep black curves create a dense optical field, where repeated line becomes signal, vibration and structure.',
   },
   {
     slug: 'psychedelic-landscape',
-    title: 'Psychedelic Landscape',
+    title: 'Black Vine, Violet Ground',
     collection: 'Chromatic Fields',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '160 x 110 cm',
     image: '/artworks/art9.jpeg',
-    mockup: '/mockups/mockup9.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Multicolor, black, white',
     description:
-      'A vivid field of color meets intricate monochrome textures, balancing exuberance with a precise internal order.',
+      'A sweeping black form cuts through violet and green linework, giving the composition the tension of growth, shadow and interruption.',
   },
   {
     slug: 'turquoise-coral-depth',
-    title: 'Turquoise Coral Depth',
+    title: 'Nocturne With Copper Lines',
     collection: 'Figure Signals',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '200 x 140 cm',
     image: '/artworks/art10.jpeg',
     mockup: '/mockups/mockup3.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Turquoise, coral, black',
     description:
-      'Fluid forms move across geometric color, opening a study of perception, distortion and layered depth.',
+      'Copper, violet and white lines gather around a dark central movement, forming a nocturnal surface of rhythm and compression.',
   },
   {
     slug: 'neon-contour',
-    title: 'Neon Contour',
+    title: 'White Channel',
     collection: 'Line Studies',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '150 x 100 cm',
     image: '/artworks/art11.jpeg',
     mockup: '/mockups/mockup11.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Black, white, neon accents',
     description:
-      'Curved monochrome structures weave through vivid details, making repetition feel optical and physical at once.',
+      'A broad white channel moves through a dense field of patterned colour, opening a pause inside an otherwise restless surface.',
   },
   {
     slug: 'central-spiral',
-    title: 'Central Spiral',
+    title: 'Rose Circuit',
     collection: 'Line Studies',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '170 x 120 cm',
     image: '/artworks/art12.jpeg',
-    mockup: '/mockups/mockup12.jpeg',
+    mockup: '/mockups/mockup4.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     featured: true,
     availableForInquiry: true,
     palette: 'Gold, red, black, white',
     description:
-      'A spiral form expands through warm chromatic layers, giving the work a sense of rotation, emergence and transformation.',
+      'Pink and blue circuits fold around sweeping black and white forms, creating a bright field of friction and visual acceleration.',
   },
   {
     slug: 'blue-surface-current',
-    title: 'Blue Surface Current',
+    title: 'Golden Spiral Field',
     collection: 'Soft Structures',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '130 x 90 cm',
     image: '/artworks/art13.jpeg',
     mockup: '/mockups/mockup9.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Blue, black, white',
     description:
-      'Electric blues and wave-like contours form a high-contrast composition inspired by motion beneath the surface.',
+      'A white spiral crosses a warm gold ground, holding a crowded field of colour in a single decisive gesture.',
   },
   {
     slug: 'ochre-fold',
-    title: 'Ochre Fold',
+    title: 'Blue Drift',
     collection: 'Soft Structures',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '190 x 130 cm',
     image: '/artworks/art14.jpeg',
-    mockup: '/mockups/mockup14.jpeg',
+    mockup: '/mockups/mockup13.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Ochre, peach, black, white',
     description:
-      'Organic black and white forms fold through warm tones, balancing softness with graphic intensity.',
+      'Blue and black forms drift through a compact horizontal field, where small bursts of colour punctuate the movement like signals.',
   },
   {
     slug: 'turquoise-fragment',
-    title: 'Turquoise Fragment',
+    title: 'Ochre Cellular Study',
     collection: 'Figure Signals',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '150 x 110 cm',
     image: '/artworks/art15.jpeg',
-    mockup: '/mockups/mockup15.jpeg',
+    mockup: '/mockups/mockup16.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     availableForInquiry: true,
     palette: 'Turquoise, pastel, monochrome',
     description:
-      'Ribbons and concentric forms cross a glowing field, where fragmentation becomes both structure and motion.',
+      'Ochre, cream and black shapes cluster inside a square field, suggesting cells, folds and small internal systems.',
   },
   {
     slug: 'expanded-fragment',
-    title: 'Expanded Fragment',
+    title: 'Turquoise Fold',
     collection: 'Figure Signals',
     year: '2026',
     medium: 'Acrylic on canvas',
     dimensions: '200 x 150 cm',
     image: '/artworks/art16.jpeg',
-    mockup: '/mockups/mockup16.jpeg',
+    mockup: '/mockups/mockup8.jpeg',
+    original: { available: true, sold: false },
+    print: defaultPrintSettings,
     featured: true,
     availableForInquiry: true,
     palette: 'Turquoise, rose, black, white',
     description:
-      'A broader field of gestural ribbons and optical forms turns the image into an expanded map of rhythm and spatial tension.',
+      'Turquoise folds move through grey, coral and black linework, giving the painting a bodily rhythm and sculptural density.',
   },
   {
     slug: 'archive-study-17',
@@ -324,6 +405,16 @@ export function getArtworksByCollection(collection: string) {
 }
 
 export function getCommercialStatus(artwork: Artwork) {
+  if (artwork.original) {
+    if (artwork.original.sold) {
+      return 'sold'
+    }
+
+    if (artwork.original.available && artwork.image) {
+      return 'available'
+    }
+  }
+
   if (artwork.commercialStatus) {
     return artwork.commercialStatus
   }
