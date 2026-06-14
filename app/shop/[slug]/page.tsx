@@ -120,6 +120,10 @@ export default async function ShopProductPage({ params }: ShopProductPageProps) 
                 <span>Certificate</span>
                 <span>{product.certificate ? 'Included' : 'Not included'}</span>
               </div>
+              <div>
+                <span>Signed certificate</span>
+                <span>{product.signedCertificate ? 'Yes' : 'No'}</span>
+              </div>
             </>
           ) : null}
         </div>
@@ -128,7 +132,7 @@ export default async function ShopProductPage({ params }: ShopProductPageProps) 
             {product.sizes.map((size) => (
               <div className="print-size-row" key={`${size.label}-${size.price}`}>
                 <span>{size.label}</span>
-                <span>{`${size.width} x ${size.height} cm`}</span>
+                <span>{`${size.width} x ${size.height} ${size.unit || 'cm'}`}</span>
                 <span>{formatPrice(size.price)}</span>
               </div>
             ))}

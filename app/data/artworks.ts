@@ -7,7 +7,26 @@ export type ArtworkPrintSize = {
   label: string
   width: number
   height: number
+  unit?: 'cm' | 'in'
   price: number
+  masterFile?: string
+  paper?: string
+  shippingWeight?: number
+  packagingType?: 'tube' | 'flat-box'
+}
+
+export type FulfillmentRegion = 'Europe' | 'USA' | 'Asia' | 'Australia' | 'Manual'
+
+export type FulfillmentLaboratory = {
+  name?: string
+  region?: FulfillmentRegion
+  country?: string
+  email?: string
+  website?: string
+  preferredPaper?: string
+  printProfile?: string
+  productionNotes?: string
+  active?: boolean
 }
 
 export type ArtworkPrint = {
@@ -16,10 +35,18 @@ export type ArtworkPrint = {
   editionSize?: number
   printsSold?: number
   paper?: string
+  paperOptions?: string[]
   signed?: boolean
   certificate?: boolean
+  signedCertificate?: boolean
   shippingWeight?: number
   masterPrintFile?: string
+  preferredLaboratory?: FulfillmentLaboratory
+  laboratoryEmail?: string
+  preferredPaper?: string
+  printProfile?: string
+  productionNotes?: string
+  packagingNotes?: string
   sizes?: ArtworkPrintSize[]
 }
 
@@ -62,15 +89,29 @@ export const defaultPrintSettings: ArtworkPrint = {
       label: '50 x 70 cm',
       width: 50,
       height: 70,
+      unit: 'cm',
       price: 180,
+      paper: 'Hahnemuhle Photo Rag 308 gsm',
+      shippingWeight: 0.4,
+      packagingType: 'tube',
     },
     {
       label: '70 x 100 cm',
       width: 70,
       height: 100,
+      unit: 'cm',
       price: 280,
+      paper: 'Hahnemuhle Photo Rag 308 gsm',
+      shippingWeight: 0.6,
+      packagingType: 'tube',
     },
   ],
+  paperOptions: ['Hahnemuhle Photo Rag 308 gsm'],
+  signedCertificate: true,
+  preferredPaper: 'Hahnemuhle Photo Rag 308 gsm',
+  printProfile: 'Archival pigment print',
+  productionNotes: 'Check colour density against the approved studio reference before packing.',
+  packagingNotes: 'Ship rolled in a reinforced archival tube unless the selected size requires flat packing.',
 }
 
 export const artworks: Artwork[] = [

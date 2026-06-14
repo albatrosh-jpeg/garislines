@@ -2309,6 +2309,11 @@ body:has(.landing-entrance) .site-footer {
     padding-block: var(--space-l);
   }
 
+  .artwork-print-section {
+    grid-template-columns: 1fr;
+    padding-block: var(--space-l);
+  }
+
   .artwork-story-hero img {
     padding: var(--space-xl) var(--space-page-x);
   }
@@ -2347,6 +2352,11 @@ body:has(.landing-entrance) .site-footer {
   .cart-action {
     padding-inline: 0;
     margin-left: 0;
+  }
+
+  .print-size-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }
 

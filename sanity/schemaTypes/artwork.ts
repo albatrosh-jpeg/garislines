@@ -136,18 +136,30 @@ export const artworkType = defineType({
         }),
         defineField({
           name: 'paper',
-          title: 'Paper',
+          title: 'Default paper',
           type: 'string',
         }),
         defineField({
+          name: 'paperOptions',
+          title: 'Paper options',
+          type: 'array',
+          of: [{ type: 'string' }],
+        }),
+        defineField({
           name: 'signed',
-          title: 'Signed',
+          title: 'Signed print',
           type: 'boolean',
           initialValue: true,
         }),
         defineField({
           name: 'certificate',
           title: 'Certificate included',
+          type: 'boolean',
+          initialValue: true,
+        }),
+        defineField({
+          name: 'signedCertificate',
+          title: 'Signed certificate',
           type: 'boolean',
           initialValue: true,
         }),
@@ -162,6 +174,42 @@ export const artworkType = defineType({
           title: 'Master print file',
           type: 'file',
           description: 'Production-ready print file for the edition.',
+        }),
+        defineField({
+          name: 'preferredLaboratory',
+          title: 'Preferred laboratory',
+          type: 'reference',
+          to: [{ type: 'laboratory' }],
+          description: 'Optional artwork-level lab preference. Regional lab routing still applies.',
+        }),
+        defineField({
+          name: 'laboratoryEmail',
+          title: 'Laboratory email override',
+          type: 'string',
+          description: 'Optional direct production email for this artwork.',
+        }),
+        defineField({
+          name: 'preferredPaper',
+          title: 'Preferred paper',
+          type: 'string',
+        }),
+        defineField({
+          name: 'printProfile',
+          title: 'Print profile',
+          type: 'string',
+          description: 'ICC profile, production profile, or lab-specific print profile.',
+        }),
+        defineField({
+          name: 'productionNotes',
+          title: 'Production notes',
+          type: 'text',
+          rows: 3,
+        }),
+        defineField({
+          name: 'packagingNotes',
+          title: 'Packaging notes',
+          type: 'text',
+          rows: 3,
         }),
         defineField({
           name: 'sizes',
@@ -187,9 +235,51 @@ export const artworkType = defineType({
                   type: 'number',
                 }),
                 defineField({
+                  name: 'unit',
+                  title: 'Unit',
+                  type: 'string',
+                  initialValue: 'cm',
+                  options: {
+                    layout: 'radio',
+                    list: [
+                      { title: 'Centimetres', value: 'cm' },
+                      { title: 'Inches', value: 'in' },
+                    ],
+                  },
+                }),
+                defineField({
                   name: 'price',
                   title: 'Price',
                   type: 'number',
+                }),
+                defineField({
+                  name: 'masterFile',
+                  title: 'Master file',
+                  type: 'file',
+                  description: 'Optional production file for this specific print size.',
+                }),
+                defineField({
+                  name: 'paper',
+                  title: 'Paper',
+                  type: 'string',
+                }),
+                defineField({
+                  name: 'shippingWeight',
+                  title: 'Shipping weight',
+                  type: 'number',
+                  description: 'Weight in kilograms.',
+                }),
+                defineField({
+                  name: 'packagingType',
+                  title: 'Packaging type',
+                  type: 'string',
+                  options: {
+                    layout: 'radio',
+                    list: [
+                      { title: 'Tube', value: 'tube' },
+                      { title: 'Flat Box', value: 'flat-box' },
+                    ],
+                  },
                 }),
               ],
               preview: {
@@ -197,10 +287,10 @@ export const artworkType = defineType({
                   title: 'label',
                   price: 'price',
                 },
-                prepare({ title, price }) {
+                prepare({ title, price }: { title?: string; price?: number }) {
                   return {
                     title: title || 'Print size',
-                    subtitle: price ? `€${price}` : undefined,
+                    subtitle: price ? `EUR ${price}` : undefined,
                   }
                 },
               },

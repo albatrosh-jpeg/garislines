@@ -77,7 +77,11 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
   const commercialStatus = getCommercialStatus(artwork)
   const commercialStatusLabel = getCommercialStatusLabel(artwork)
   const acquisitionHref =
-    commercialStatus === 'available' ? `/shop/${artwork.slug}` : '/shop#prints'
+    commercialStatus === 'available'
+      ? `/shop/${artwork.slug}`
+      : printProduct
+        ? `/shop/${printProduct.slug}`
+        : '/shop#prints'
   const artworkImage = artwork.image
   const detailImages =
     artwork.detailImages && artwork.detailImages.length > 0
@@ -170,6 +174,10 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
                 <span>{printProduct.certificate ? 'Included' : 'Not included'}</span>
               </div>
               <div>
+                <span>Signed certificate</span>
+                <span>{printProduct.signedCertificate ? 'Yes' : 'No'}</span>
+              </div>
+              <div>
                 <span>Price</span>
                 <span>{`From ${printProduct.priceLabel}`}</span>
               </div>
@@ -179,7 +187,7 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
                 {printProduct.sizes.map((size) => (
                   <div className="print-size-row" key={`${size.label}-${size.price}`}>
                     <span>{size.label}</span>
-                    <span>{`${size.width} x ${size.height} cm`}</span>
+                    <span>{`${size.width} x ${size.height} ${size.unit || 'cm'}`}</span>
                     <span>{formatPrice(size.price)}</span>
                   </div>
                 ))}
@@ -211,7 +219,7 @@ export default async function ArtworkPage({ params }: ArtworkPageProps) {
               <Link href={`/shop/${artwork.slug}`} className="text-link">
                 Acquire Original -&gt;
               </Link>
-              <Link href="/shop#prints" className="text-link">
+              <Link href={printProduct ? `/shop/${printProduct.slug}` : '/shop#prints'} className="text-link">
                 View Print Editions -&gt;
               </Link>
             </div>

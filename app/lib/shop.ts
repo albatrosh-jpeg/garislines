@@ -25,7 +25,12 @@ export type ShopProduct = {
   paper?: string
   signed?: boolean
   certificate?: boolean
+  signedCertificate?: boolean
   shippingWeight?: number
+  preferredPaper?: string
+  printProfile?: string
+  productionNotes?: string
+  packagingNotes?: string
   sizes?: ArtworkPrintSize[]
   soldOut?: boolean
 }
@@ -143,7 +148,12 @@ function printProductFromArtwork(artwork: Artwork): ShopProduct | null {
     paper: artwork.print?.paper,
     signed: artwork.print?.signed,
     certificate: artwork.print?.certificate,
+    signedCertificate: artwork.print?.signedCertificate,
     shippingWeight: artwork.print?.shippingWeight,
+    preferredPaper: artwork.print?.preferredPaper,
+    printProfile: artwork.print?.printProfile,
+    productionNotes: artwork.print?.productionNotes,
+    packagingNotes: artwork.print?.packagingNotes,
     sizes,
     soldOut,
   }

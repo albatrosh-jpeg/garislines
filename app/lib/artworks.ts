@@ -48,15 +48,38 @@ const artworkFields = groq`
     editionSize,
     printsSold,
     paper,
+    paperOptions,
     signed,
     certificate,
+    signedCertificate,
     shippingWeight,
     "masterPrintFile": masterPrintFile.asset->url,
+    "preferredLaboratory": preferredLaboratory->{
+      name,
+      region,
+      country,
+      email,
+      website,
+      preferredPaper,
+      printProfile,
+      productionNotes,
+      active
+    },
+    laboratoryEmail,
+    preferredPaper,
+    printProfile,
+    productionNotes,
+    packagingNotes,
     sizes[]{
       label,
       width,
       height,
-      price
+      unit,
+      price,
+      "masterFile": masterFile.asset->url,
+      paper,
+      shippingWeight,
+      packagingType
     }
   },
   availabilityStatus,
@@ -142,6 +165,10 @@ export async function getArtwork(slug: string) {
 export async function getAvailableOriginals() {
   const artworks = await getArtworks()
   return artworks.filter((artwork) => {
+    if (artwork.original) {
+      return Boolean(artwork.image && artwork.original.available && !artwork.original.sold)
+    }
+
     const showInShop = artwork.showInShop ?? getCommercialStatus(artwork) === 'available'
     const shopCategory = artwork.shopCategory || 'original'
 
